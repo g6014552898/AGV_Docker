@@ -1,0 +1,16 @@
+FROM ros:melodic-robot
+# install ros  packages
+RUN mkdir -p ~/catkin_ws/src && cd ~/catkin_ws/src && \
+    /bin/bash -c "source /opt/ros/melodic/setup.bash && catkin_init_workspace && \
+    cd ~/catkin_ws && catkin_make" && \
+    apt-get update && apt-get upgrade -y && apt-get install -y \
+    build-essential ros-melodic-rosserial  ros-melodic-rosserial-arduino ros-melodic-navigation ros-melodic-rplidar-ros ros-melodic-cartographer-ros ros-melodic-imu-filter-madgwick ros-melodic-robot-localization && \
+    apt-get update && apt-get upgrade -y && \
+    cd ~/catkin_ws/src &&\
+    git clone https://github.com/linorobot/linorobot.git &&\
+    git clone https://github.com/linorobot/imu_calib.git &&\
+    git clone https://github.com/linorobot/lino_pid.git &&\
+    git clone https://github.com/linorobot/lino_udev.git &&\
+    git clone https://github.com/linorobot/lino_msgs.git &&\
+    /bin/bash -c "source ~/catkin_ws/devel/setup.bash && cd ~/catkin_ws && catkin_make --pkg lino_msgs && source ~/catkin_ws/devel/setup.bash && catkin_make && source ~/catkin_ws/devel/setup.bash" &&\
+    apt-get autoremove -y && rm -rf /var/lib/apt/lists/

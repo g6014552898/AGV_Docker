@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+
+<launch>
+  <include file="$(find agv)/launch/robot.launch" />
+  <include file="$(find agv)/launch/movebase.launch" />
+  <!-- <include file="$(find agv)/launch/camera.launch" /> -->
+  <!-- <include file="$(find agv)/launch/web.launch" /> -->
+  
+</launch>

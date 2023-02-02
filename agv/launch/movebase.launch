@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <!-- Map server -->
+    <!-- <arg name="map_file" default="$(find agv)/maps/map.yaml"/> -->
+    <!-- <node pkg="map_server" name="map_server"  type="map_server" args="$(arg map_file)" /> -->
+
+    <!-- AMCL used for localization -->
+    <!-- <include file="$(find agv)/launch/amcl.launch" /> -->
+    
+  <!-- Cartographer -->
+  <include file="$(find agv)/launch/mapping_2d.launch" />
+    
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" required="true">
+        <rosparam file="$(find agv)/cfg/base_planner_params.yaml" 
+        command="load"/> 
+        <rosparam file="$(find agv)/cfg/local_costmap_params.yaml" 
+        command="load"/>
+        <rosparam file="$(find agv)/cfg/global_costmap_params.yaml" 
+        command="load"/>
+	</node>
+</launch>
